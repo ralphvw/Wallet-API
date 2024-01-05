@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WalletWebApi", "WalletWebApi\WalletWebApi.csproj", "{0BF09D98-7DB1-4434-A2E9-42B674A01455}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0BF09D98-7DB1-4434-A2E9-42B674A01455}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BF09D98-7DB1-4434-A2E9-42B674A01455}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BF09D98-7DB1-4434-A2E9-42B674A01455}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BF09D98-7DB1-4434-A2E9-42B674A01455}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
