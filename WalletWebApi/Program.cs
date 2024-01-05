@@ -3,26 +3,35 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 using WalletWebApi.Data;
 using WalletWebApi.Mappings;
+using WalletWebApi.Middlewares;
 using WalletWebApi.Models.Domain;
 using WalletWebApi.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var logger = new LoggerConfiguration().WriteTo.Console()
+    .WriteTo.File("Logs/Walks_Log.txt", rollingInterval: RollingInterval.Day)
+    .MinimumLevel.Information()
+    .CreateLogger();
+
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddAuthorization();
 
 builder.Services.AddDbContext<WalletDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("WalletConnectionString")));
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
-builder.Services.AddIdentityCore<ApplicationUser>(options =>
-    {
-        options.User.RequireUniqueEmail = true;
-    })
+builder.Services.AddIdentityCore<ApplicationUser>()
     .AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>("Wallet")
     .AddEntityFrameworkStores<WalletDbContext>()
     .AddDefaultTokenProviders();
@@ -58,6 +67,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
