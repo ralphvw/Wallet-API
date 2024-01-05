@@ -19,7 +19,10 @@ builder.Services.AddDbContext<WalletDbContext>(options => options.UseSqlServer(b
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
-builder.Services.AddIdentityCore<ApplicationUser>()
+builder.Services.AddIdentityCore<ApplicationUser>(options =>
+    {
+        options.User.RequireUniqueEmail = true;
+    })
     .AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>("Wallet")
     .AddEntityFrameworkStores<WalletDbContext>()
     .AddDefaultTokenProviders();
