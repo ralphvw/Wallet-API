@@ -29,6 +29,7 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddDbContext<WalletDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("WalletConnectionString")));
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+builder.Services.AddScoped<IWalletRepository, WalletRepository>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 builder.Services.AddIdentityCore<ApplicationUser>()

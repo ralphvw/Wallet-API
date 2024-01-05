@@ -42,18 +42,19 @@ public class WalletRepository: IWalletRepository
         return userWallets;
     }
 
-    public async Task<bool> CheckDuplicateWallet(string type, string accountNumber)
+    public async Task<bool> CheckDuplicateWallet(string type, string accountNumber, string ownerId)
     {
-        bool exists = await _dbContext.Wallets.AnyAsync(w => w.Type == type && w.AccountNumber == accountNumber);
+        bool exists = await _dbContext.Wallets.AnyAsync(w => w.Type == type && w.AccountNumber == accountNumber 
+                                                                            && w.OwnerId == ownerId);
 
         return exists;
     }
 
-    public async Task<bool> CheckUserLimit(string userId, int limit = 5)
+    public async Task<bool> CheckUserLimit(string userId, int? limit = 5)
     {
         int walletCount = await _dbContext.Wallets.CountAsync(w => w.OwnerId == userId);
         
-        return walletCount > limit;
+        return walletCount >= limit;
     }
     
     public async Task<bool> WalletExists(int id)
