@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using WalletWebApi.Data;
 using WalletWebApi.Mappings;
 using WalletWebApi.Models.Domain;
+using WalletWebApi.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<WalletDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("WalletConnectionString")));
+builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 builder.Services.AddIdentityCore<ApplicationUser>()
     .AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>("Wallet")
