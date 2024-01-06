@@ -13,8 +13,6 @@ public class WalletDbContext: DbContext
     public DbSet<Wallet> Wallets { get; set; }
     public DbSet<ApplicationUser> Users { get; set; }
 
-    // Your other DbSet properties and configurations
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -23,6 +21,6 @@ public class WalletDbContext: DbContext
             .HasOne(w => w.Owner)
             .WithMany(u => u.Wallets)
             .HasForeignKey(w => w.OwnerId)
-            .OnDelete(DeleteBehavior.Restrict); // or Cascade if needed
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }
