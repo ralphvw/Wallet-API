@@ -11,15 +11,15 @@ namespace WalletWebApi.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 [Authorize]
-public class WalletController: ControllerBase
+public class WalletsController: ControllerBase
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly IWalletRepository _walletRepository;
     private readonly IMapper _mapper;
-    private readonly ILogger<WalletController> _logger;
+    private readonly ILogger<WalletsController> _logger;
 
-    public WalletController(UserManager<ApplicationUser> userManager, IWalletRepository walletRepository,
-        IMapper mapper, ILogger<WalletController> logger)
+    public WalletsController(UserManager<ApplicationUser> userManager, IWalletRepository walletRepository,
+        IMapper mapper, ILogger<WalletsController> logger)
     {
         _userManager = userManager;
         _walletRepository = walletRepository;

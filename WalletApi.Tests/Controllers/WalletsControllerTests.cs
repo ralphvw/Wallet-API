@@ -13,18 +13,18 @@ using WalletWebApi.Repositories;
 
 namespace WalletApi.Tests.Controllers;
 
-public class WalletControllerTests
+public class WalletsControllerTests
 {
     private readonly Mock<IUserStore<ApplicationUser>> _storeMock = new();
     
     private readonly Mock<UserManager<ApplicationUser>> _userManagerMock;
     private readonly Mock<IWalletRepository> _walletRepoMock = new();
     private readonly Mock<IMapper> _mapperMock = new();
-    private readonly Mock<ILogger<WalletController>> _loggerMock = new();
+    private readonly Mock<ILogger<WalletsController>> _loggerMock = new();
 
-    private readonly WalletController _controller;
+    private readonly WalletsController _controller;
 
-    public WalletControllerTests()
+    public WalletsControllerTests()
     
     {
         _userManagerMock = new Mock<UserManager<ApplicationUser>>(
@@ -55,7 +55,7 @@ public class WalletControllerTests
             HttpContext = httpContext.Object,
         };
 
-        _controller = new WalletController(_userManagerMock.Object, _walletRepoMock.Object, _mapperMock.Object, _loggerMock.Object)
+        _controller = new WalletsController(_userManagerMock.Object, _walletRepoMock.Object, _mapperMock.Object, _loggerMock.Object)
         {
             ControllerContext = controllerContext,
         };
