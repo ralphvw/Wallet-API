@@ -20,10 +20,10 @@ public class TokenRepository: ITokenRepository
     {
         var claims = new List<Claim>
         {
-            // Add claims for FirstName, LastName, and PhoneNumber (represented as UserName)
             new Claim(ClaimTypes.GivenName, user.FirstName),
             new Claim(ClaimTypes.Surname, user.LastName),
-            new Claim(ClaimTypes.NameIdentifier, user.UserName) // Using NameIdentifier for phone number
+            new Claim(ClaimTypes.Name, user.UserName),
+            new Claim(ClaimTypes.NameIdentifier, user.Id)
         };
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
@@ -33,7 +33,7 @@ public class TokenRepository: ITokenRepository
             _configuration["Jwt:Issuer"],
             _configuration["Jwt:Audience"],
             claims,
-            expires: DateTime.Now.AddMinutes(30),
+            expires: DateTime.Now.AddDays(1),
             signingCredentials: credentials
         );
 

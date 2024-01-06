@@ -41,8 +41,7 @@ public class AuthController: ControllerBase
         if (!result.Succeeded)
         {
             var errors = result.Errors.Select(e => e.Description).ToList();
-
-            // You can log the errors for debugging purposes
+            
             foreach (var error in errors)
             {
                 _logger.LogError($"User creation error: {error}");
